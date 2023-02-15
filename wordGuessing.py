@@ -1,9 +1,11 @@
 import random
 
 def main():
-    words = ["process", "thread", "forks", "signal"]
+    file = open("wordlist", "r")
+    allTheLinesIfTheFile = file.readlines()
+    file.close()
 
-    selectedWord = words[random.randint(0, len(words) - 1)]
+    selectedWord = allTheLinesIfTheFile[random.randint(0, len(allTheLinesIfTheFile) - 1)].strip()
     # selectedWord = "process"
     attempts = 2
     truthTracker = False
