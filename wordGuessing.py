@@ -1,10 +1,12 @@
 import random
 
 def main():
+    # Opening wordlist file supplied by the customer
     file = open("wordlist", "r")
     allTheLinesIfTheFile = file.readlines()
     file.close()
 
+    # selecting a word at random
     selectedWord = allTheLinesIfTheFile[random.randint(0, len(allTheLinesIfTheFile) - 1)].strip()
     # selectedWord = "process"
     attempts = 2
