@@ -3,8 +3,8 @@ import random
 def main():
     words = ["process", "thread", "forks", "signal"]
 
-    # selectedWord = words[random.randint(0, len(words) - 1)]
-    selectedWord = "process"
+    selectedWord = words[random.randint(0, len(words) - 1)]
+    # selectedWord = "process"
     attempts = 2
     truthTracker = False
     winningTracker = False
