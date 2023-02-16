@@ -2,6 +2,7 @@ import random
 
 def main():
     # Opening wordlist file supplied by the customer
+    # TODO need to add filtering to our file reading
     file = open("wordlist", "r")
     allTheLinesIfTheFile = file.readlines()
     file.close()
