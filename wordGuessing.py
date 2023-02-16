@@ -13,6 +13,10 @@ def main():
     truthTracker = False
     winningTracker = False
 
+    scoreCorrect = 10
+    scoreIncorrect = -15
+    scoreCurrent = 0
+
     # Creating our mask, its gonna be as long as the selectedword is
     mask = []
     for char in selectedWord:
@@ -22,6 +26,7 @@ def main():
     while attempts != 0 and not winningTracker:
         # Printing attempts left
         print("You have {} attempts left".format(attempts))
+        print(scoreCurrent)
 
         # Printing out an _ or a char based on the mask value
         for index, char in enumerate(selectedWord):
@@ -35,7 +40,7 @@ def main():
         # guessing out character
         userInput = input("Guess a character > ")
 
-        # Checking if they have us bad input
+        # Checking if they gave us bad input
         if len(userInput) > 1 or not userInput.isalpha():
             print("You gave bad input, bad, bad person")
             continue
@@ -45,6 +50,7 @@ def main():
             if userInput == char:
                 mask[index] = True
                 truthTracker = True
+                scoreCurrent = scoreCurrent + scoreCorrect
 
         # Our logic for seeing if the game has been won or not
         for item in mask:
@@ -57,12 +63,26 @@ def main():
         # If they guessed incorrectly, deduct an attempt
         if not truthTracker:
             attempts = attempts - 1
+            scoreCurrent += scoreIncorrect
+            # scoreCorrect = scoreCorrect + scoreIncorrect
 
     # Printing if we won or not
     if winningTracker:
         print("You won!")
     else:
         print("You lost!")
+
+    name = ""
+    while not name.isalpha():
+        print("Enter name to be saved on the highscore list")
+        name = input("Enter > ")
+
+        if not name.isalpha():
+            print("You have me bad bad input")
+
+    file = open("saved", "a")
+    file.write("{},{}".format(name, scoreCurrent))
+    file.close()
 
 
 if __name__ == "__main__":
