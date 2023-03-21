@@ -1,0 +1,27 @@
+words in a table
+- id 
+- word 
+
+CREATE TABLE public.words (
+	id serial NOT NULL,
+	word varchar NOT NULL
+);
+
+ALTER TABLE public.words ADD CONSTRAINT words_pk PRIMARY KEY (id);
+
+
+
+names + score in a table
+- id
+- score
+- name
+- timestamp
+
+CREATE TABLE public.highscore (
+	id serial NOT NULL,
+	"name" varchar NOT NULL,
+	score int NOT NULL,
+	"timestamp" timestamp NOT NULL
+);
+ALTER TABLE public.highscore ADD CONSTRAINT highscore_pk PRIMARY KEY (id);
+CREATE INDEX highscore_score_idx ON public.highscore (score);
