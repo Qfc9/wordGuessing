@@ -1,14 +1,19 @@
 import random
+import psycopg2
 
 def main():
     # Opening wordlist file supplied by the customer
-    # TODO need to add filtering to our file reading
-    file = open("wordlist", "r")
-    allTheLinesIfTheFile = file.readlines()
-    file.close()
 
-    # selecting a word at random
-    selectedWord = allTheLinesIfTheFile[random.randint(0, len(allTheLinesIfTheFile) - 1)].strip()
+    # Connect to your postgres DB
+    conn = psycopg2.connect("dbname=postgres user=postgres password=password")
+    # Open a cursor to perform database operations
+    cur = conn.cursor()
+
+    cur.execute("select * from public.words order by random() limit 1;")
+    selectedWord = cur.fetchone()[1]
+
+    conn.close()
+
     # selectedWord = "process"
     attempts = 2
     truthTracker = False
