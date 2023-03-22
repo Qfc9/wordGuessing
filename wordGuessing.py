@@ -1,11 +1,17 @@
 import random
 import psycopg2
+import datetime
+
+def dbConnect():
+    return psycopg2.connect("dbname=postgres user=postgres password=password")
+
 
 def main():
     # Opening wordlist file supplied by the customer
 
     # Connect to your postgres DB
-    conn = psycopg2.connect("dbname=postgres user=postgres password=password")
+    conn = dbConnect()
+
     # Open a cursor to perform database operations
     cur = conn.cursor()
 
@@ -86,10 +92,17 @@ def main():
         if not name.isalpha():
             print("You have me bad bad input")
 
-    file = open("saved", "a")
-    file.write("{},{}".format(name, scoreCurrent))
-    file.close()
+    # Connect to your postgres DB
+    conn = dbConnect()
+    # Open a cursor to perform database operations
+    cur = conn.cursor()
 
+    cur.execute("""
+        INSERT INTO public.highscore (name, score, timestamp) VALUES(%s, %s, %s)
+    """, [name, scoreCurrent, str(datetime.datetime.now())])
+    conn.commit()
+
+    conn.close()
 
 if __name__ == "__main__":
     main()
